@@ -51,13 +51,9 @@ class Task2Test {
         List<Double> sortedPrices = new ArrayList<>(prices); //copy price list
 
         Collections.sort(sortedPrices);  // ASC order
-        // Collections.reverse(sortedPrices);
+        //Collections.reverse(sortedPrices);
 
-        if (prices.equals(sortedPrices)) {
-            System.out.println("Items are sorted by price from Low to High.");
-        } else {
-            System.out.println("Items are not sorted correctly by price.");
-        }
+        assertEquals(sortedPrices, prices);
 
         // 6. add the item 'Sauce Labs Bolt T-Shirt' to cart,
         // check that the button on the product card has changed to 'Remove'
@@ -79,16 +75,16 @@ class Task2Test {
 
         // 8. save all data about the product added to the cart
 
-        String price_1 = driver.findElement(By.cssSelector("#inventory_container > div > div:nth-child(3) > div.inventory_item_description > div.pricebar > div")).getText();
-        String description_1 = driver.findElement(By.cssSelector("#inventory_container > div > div:nth-child(3) > div.inventory_item_description > div.inventory_item_label > div")).getText();
-        String item_name_1 = driver.findElement(By.cssSelector("#item_1_title_link > div")).getText();
+        String price_1 = driver.findElement(By.xpath("//div[contains(@class, \"inventory_item\")][3]/div[contains(@class, \"inventory_item_description\")]/div[contains(@class, \"pricebar\")]/div[contains(@class, \"inventory_item_price\")]")).getText();
+        String description_1 = driver.findElement(By.xpath("//div[contains(@class, \"inventory_item\")][3]/div[contains(@class, \"inventory_item_description\")]/div[contains(@class, \"inventory_item_label\")]/div[contains(@class, \"inventory_item_desc\")]")).getText();
+        String item_name_1 = driver.findElement(By.xpath("//a[@id=\"item_1_title_link\"]/div[contains(@class, \"inventory_item_name \")]")).getText();
 
         // 9. go to the cart and check that the data about the product corresponds to the data saved at step 8
 
         driver.findElement(By.className("shopping_cart_link")).click();
-        String price_2 = driver.findElement(By.cssSelector("#cart_contents_container > div > div.cart_list > div.cart_item > div.cart_item_label > div.item_pricebar > div")).getText();
-        String description_2 = driver.findElement(By.cssSelector("#cart_contents_container > div > div.cart_list > div.cart_item > div.cart_item_label > div.inventory_item_desc")).getText();
-        String item_name_2 = driver.findElement(By.cssSelector("#item_1_title_link > div")).getText();
+        String price_2 = driver.findElement(By.xpath("//div[contains(@class, \"inventory_item_price\")]")).getText();
+        String description_2 = driver.findElement(By.xpath("//div[contains(@class, \"inventory_item_desc\")]")).getText();
+        String item_name_2 = driver.findElement(By.xpath("//div[contains(@class, \"inventory_item_name\")]")).getText();
 
         assertEquals(price_1, price_2);
         assertEquals(description_1, description_2);
