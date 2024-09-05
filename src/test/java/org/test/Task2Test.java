@@ -7,11 +7,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.Select;
-
-import javax.lang.model.element.Element;
-import java.util.Arrays;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class Task2Test {
@@ -42,7 +40,24 @@ class Task2Test {
         select.selectByValue("lohi");
 
         // 5. make sure that sorting is applied on the page (check that the location of items on the page by price)
-        // --------------------------------
+
+        List<WebElement> priceElements = driver.findElements(By.className("inventory_item_price"));
+        List<Double> prices = new ArrayList<>();
+        for (WebElement priceElement : priceElements) {
+            String priceText = priceElement.getText().replace("$", "").replace(",", "");
+            prices.add(Double.parseDouble(priceText));
+        }
+
+        List<Double> sortedPrices = new ArrayList<>(prices); //copy price list
+
+        Collections.sort(sortedPrices);  // ASC order
+        // Collections.reverse(sortedPrices);
+
+        if (prices.equals(sortedPrices)) {
+            System.out.println("Items are sorted by price from Low to High.");
+        } else {
+            System.out.println("Items are not sorted correctly by price.");
+        }
 
         // 6. add the item 'Sauce Labs Bolt T-Shirt' to cart,
         // check that the button on the product card has changed to 'Remove'
