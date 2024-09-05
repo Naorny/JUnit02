@@ -75,8 +75,8 @@ class Task2Test {
 
         // 8. save all data about the product added to the cart
 
-        String price_1 = driver.findElement(By.xpath("//div[contains(@class, \"inventory_item\")][3]/div[contains(@class, \"inventory_item_description\")]/div[contains(@class, \"pricebar\")]/div[contains(@class, \"inventory_item_price\")]")).getText();
-        String description_1 = driver.findElement(By.xpath("//div[contains(@class, \"inventory_item\")][3]/div[contains(@class, \"inventory_item_description\")]/div[contains(@class, \"inventory_item_label\")]/div[contains(@class, \"inventory_item_desc\")]")).getText();
+        String price_1 = driver.findElement(By.xpath("//a[@id=\"item_1_title_link\"]/parent::div/following-sibling::div[contains(@class, \"pricebar\")]/div")).getText();
+        String description_1 = driver.findElement(By.xpath("//a[@id=\"item_1_title_link\"]/following-sibling::div[contains(@class, \"inventory_item_desc\")]")).getText();
         String item_name_1 = driver.findElement(By.xpath("//a[@id=\"item_1_title_link\"]/div[contains(@class, \"inventory_item_name \")]")).getText();
 
         // 9. go to the cart and check that the data about the product corresponds to the data saved at step 8
